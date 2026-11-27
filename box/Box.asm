@@ -40,7 +40,7 @@ M=M-1
 @32
 D=A
 @addr
-M=M+D
+M=D+M
 @rows
 M=M-1
 @LOOP
