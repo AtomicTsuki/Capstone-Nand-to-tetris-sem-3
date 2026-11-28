@@ -1,46 +1,45 @@
-// Box.asm -- filled box. PLACEHOLDER VALUES: replace with your K-based numbers.
-// Example: start word column 10, row 100 -> 16384 + 100*32 + 10 = 19594
-// Width = 4 words (64 px), height = 50 rows.
-@19594      // START = 16384 + row*32 + col
+// Box.asm - draws a box (W = 4 words = 64 pixels wide, H = K = 43 rows)
+// Start address = 16384 + row*32 + col = 16384 + 100*32 + 10 = 19594
+@19594
 D=A
 @addr
-M=D
-@50         // H (rows)
+M=D // addr = start address
+@43
 D=A
 @rows
-M=D
+M=D // rows = H = K = 43
 (LOOP)
 @rows
 D=M
 @END
-D;JEQ
-@4          // W (words per row)
+D;JEQ // if rows == 0 goto END
+@4
 D=A
 @cols
-M=D
+M=D // cols = W = 4
 @addr
 D=M
 @p
-M=D
+M=D // p = addr
 (ROW)
 @cols
 D=M
-@NEXTROW
-D;JEQ
+@NEXT
+D;JEQ // if cols == 0 goto NEXT
 @p
 A=M
-M=-1
+M=-1 // 16 black pixels
 @p
-M=M+1
+M=M+1 // next word
 @cols
 M=M-1
 @ROW
 0;JMP
-(NEXTROW)
+(NEXT)
 @32
 D=A
 @addr
-M=D+M
+M=D+M // addr = addr + 32 (next pixel row)
 @rows
 M=M-1
 @LOOP
